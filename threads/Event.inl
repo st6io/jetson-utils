@@ -32,7 +32,12 @@ inline Event::Event( bool autoReset )
 	mAutoReset = autoReset;
 	mQuery     = false;
 	
-	pthread_cond_init(&mID, NULL);
+	// Use CLOCK_MONOTONIC to be immune to NTP adjustments
+	pthread_condattr_t attr;
+	pthread_condattr_init(&attr);
+	pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
+	pthread_cond_init(&mID, &attr);
+	pthread_condattr_destroy(&attr);
 }
 
 
@@ -94,7 +99,10 @@ inline bool Event::Wait( const timespec& timeout )
 {
 	mQueryMutex.Lock();
 
-	const timespec abs_time = timeAdd( timestamp(), timeout );
+	struct timespec now;
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	
+	const timespec abs_time = timeAdd( now, timeout );
 
 	while(!mQuery)
 	{

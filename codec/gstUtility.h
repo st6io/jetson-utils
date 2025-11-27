@@ -36,6 +36,12 @@
  */
 #define LOG_GSTREAMER "[gstreamer] "
 
+/**
+ * LOG_AMERU logging prefix
+ * @ingroup codec
+ */
+#define LOG_AMERU "[ameru] "
+
 
 /**
  * gstreamerInit

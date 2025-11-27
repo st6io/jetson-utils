@@ -135,13 +135,23 @@ protected:
 	static std::string mFilename;
 };
 
+inline const char* LogTimestamp()
+{
+    static thread_local char buf[32];
+    time_t t = time(nullptr);
+    struct tm tm;
+    localtime_r(&t, &tm);
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tm);
+    return buf;
+}
+
 
 /**
  * Log a printf-style message with the provided level.
  * @ingroup log
  * @internal
  */
-#define GenericLogMessage(level, format, args...) if( level <= Log::GetLevel() ) fprintf(Log::GetFile(), format, ## args)
+#define GenericLogMessage(level, format, args...) if (level <= Log::GetLevel()) fprintf(Log::GetFile(), "[%s] " format, LogTimestamp(), ##args)
 
 /**
  * Log a printf-style error message (Log::ERROR)

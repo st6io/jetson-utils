@@ -710,7 +710,6 @@ void gstCamera::checkBuffer()
 
 #define RETURN_STATUS(code)  { if( status != NULL ) { *status=(code); } return ((code) == videoSource::OK ? true : false); }
 
-
 // Capture
 bool gstCamera::Capture( void** output, imageFormat format, uint64_t timeout, int* status, cudaStream_t stream )
 {
@@ -725,6 +724,7 @@ bool gstCamera::Capture( void** output, imageFormat format, uint64_t timeout, in
 			RETURN_STATUS(ERROR);
 	}
 
+	LogInfo(LOG_AMERU "gstCamera::Capture() -- Camera Capute Called\n");
 	// wait until a new frame is recieved
 	const int result = mBufferManager->Dequeue(output, format, timeout, stream);
 	

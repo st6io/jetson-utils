@@ -407,6 +407,7 @@ int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeo
 		latestYUV = mBufferYUV.Next(RingBuffer::ReadLatestOnce);
 
 	if( !latestYUV )
+		// LogError(LOG_AMERU "Received latestYUV NULL, returnings -1 %d\n", latestYUV);
 		return -1;
 
 	// handle timestamp (both paths)

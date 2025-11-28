@@ -730,7 +730,7 @@ bool gstCamera::Capture( void** output, imageFormat format, uint64_t timeout, in
 	
 	if( result < 0 )
 	{
-		LogError(LOG_GSTREAMER "gstCamera::Capture() -- an error occurred retrieving the next image buffer\n");
+		LogInfo(LOG_GSTREAMER "gstCamera::Capture() -- an error occurred retrieving the next image buffer\n");
 		RETURN_STATUS(ERROR);
 	}
 	else if( result == 0 )

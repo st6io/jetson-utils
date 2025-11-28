@@ -186,6 +186,8 @@ inline void* RingBuffer::Next( uint32_t flags )
 		if( flags & Threaded )
 			mMutex.Unlock();
 
+		LogInfo(LOG_AMERU "RingBugger::Next() -- mReadOnce, returning NULL");
+
 		return NULL;
 	}
 	else if( flags & ReadLatest )

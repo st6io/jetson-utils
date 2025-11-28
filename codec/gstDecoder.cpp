@@ -783,7 +783,7 @@ GstFlowReturn gstDecoder::onPreroll( _GstAppSink* sink, void* user_data )
 // onBuffer
 GstFlowReturn gstDecoder::onBuffer( _GstAppSink* sink, void* user_data )
 {
-	LogInfo(LOG_AMERU "onBuffer");
+	LogInfo(LOG_AMERU "onBuffer\n");
 	
 	if( !user_data )
 		return GST_FLOW_OK;

@@ -298,7 +298,7 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 // Dequeue
 int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeout, cudaStream_t stream )
 {
-	LogInfo(LOG_AMERU "Dequeue");
+	LogInfo(LOG_AMERU "Dequeue\n");
 	// wait until a new frame is recieved
 	if( !mWaitEvent.Wait(timeout) )
 		return 0;

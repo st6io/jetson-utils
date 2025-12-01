@@ -647,7 +647,7 @@ GstFlowReturn gstCamera::onPreroll(_GstAppSink* sink, void* user_data)
 // onBuffer
 GstFlowReturn gstCamera::onBuffer(_GstAppSink* sink, void* user_data)
 {
-	LogInfo(LOG_AMERU "onBuffer\n");
+	LogDebug(LOG_AMERU "gstCamera -- onBuffer\n");
 	
 	if( !user_data )
 		return GST_FLOW_OK;

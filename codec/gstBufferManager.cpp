@@ -256,6 +256,7 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 		}
 
 		memcpy(nextBuffer, gstData, gstSize);
+		LogDebug(LOG_AMERU, "gstBufferManager -- writing to RingBuffer\n");
 		mBufferYUV.Next(RingBuffer::Write);
 	}
 
@@ -300,7 +301,7 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 // Dequeue
 int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeout, cudaStream_t stream )
 {
-	LogInfo(LOG_AMERU "Dequeue\n");
+	LogDebug(LOG_AMERU "Dequeue\n");
 	// wait until a new frame is recieved
 	if( !mWaitEvent.Wait(timeout) )
 		return 0;

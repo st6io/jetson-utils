@@ -71,6 +71,8 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 	if( !gstBuffer || !gstCaps )
 		return false;
 
+	mWaitEvent.Reset();
+
 	uint64_t timestamp = apptime_nano();
 
 #if GST_CHECK_VERSION(1,0,0)	

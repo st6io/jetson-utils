@@ -68,7 +68,7 @@ gstBufferManager::~gstBufferManager()
 // Enqueue
 bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 {
-	LogDebug(LOG_AMERU "gstBufferManager::Enqueue()\n");
+	LogDebug(LOG_GSTREAMER "gstBufferManager::Enqueue()\n");
 	if( !gstBuffer || !gstCaps )
 		return false;
 
@@ -407,7 +407,7 @@ int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeo
 
 	// handle the CPU path (non-NVMM)
 	if( !mNvmmUsed )
-		LogDebug(LOG_AMERU "gstBufferManager::Dequeue() -- reading latest once\n");
+		LogDebug(LOG_GSTREAMER "gstBufferManager::Dequeue() -- reading latest once\n");
 		latestYUV = mBufferYUV.Next(RingBuffer::ReadLatestOnce);
 
 	if( !latestYUV )

@@ -186,7 +186,7 @@ inline void* RingBuffer::Next( uint32_t flags )
 		if( flags & Threaded )
 			mMutex.Unlock();
 
-		LogWarning(LOG_AMERU "RingBugger::Next() -- mReadOnce, returning NULL\n");
+		LogWarning(LOG_CUDA "RingBugger::Next() -- mReadOnce, returning NULL\n");
 
 		return NULL;
 	}

@@ -647,8 +647,6 @@ GstFlowReturn gstCamera::onPreroll(_GstAppSink* sink, void* user_data)
 // onBuffer
 GstFlowReturn gstCamera::onBuffer(_GstAppSink* sink, void* user_data)
 {
-	LogDebug(LOG_AMERU "gstCamera -- onBuffer\n");
-	
 	if( !user_data )
 		return GST_FLOW_OK;
 		
@@ -730,7 +728,7 @@ bool gstCamera::Capture( void** output, imageFormat format, uint64_t timeout, in
 	
 	if( result < 0 )
 	{
-		LogInfo(LOG_GSTREAMER "gstCamera::Capture() -- an error occurred retrieving the next image buffer\n");
+		LogError(LOG_GSTREAMER "gstCamera::Capture() -- an error occurred retrieving the next image buffer\n");
 		RETURN_STATUS(ERROR);
 	}
 	else if( result == 0 )

@@ -68,6 +68,7 @@ gstBufferManager::~gstBufferManager()
 // Enqueue
 bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 {
+	LogDebug(LOG_AMERU "gstBufferManager::Enqueue()\n");
 	if( !gstBuffer || !gstCaps )
 		return false;
 
@@ -256,7 +257,6 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 		}
 
 		memcpy(nextBuffer, gstData, gstSize);
-		LogDebug(LOG_AMERU, "gstBufferManager -- writing to RingBuffer\n");
 		mBufferYUV.Next(RingBuffer::Write);
 	}
 
@@ -301,7 +301,6 @@ bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 // Dequeue
 int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeout, cudaStream_t stream )
 {
-	LogDebug(LOG_AMERU "Dequeue\n");
 	// wait until a new frame is recieved
 	if( !mWaitEvent.Wait(timeout) )
 		return 0;
@@ -408,6 +407,7 @@ int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeo
 
 	// handle the CPU path (non-NVMM)
 	if( !mNvmmUsed )
+		LogDebug(LOG_AMERU "gstBufferManager::Dequeue() -- reading latest once\n");
 		latestYUV = mBufferYUV.Next(RingBuffer::ReadLatestOnce);
 
 	if( !latestYUV )

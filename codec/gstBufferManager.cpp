@@ -68,8 +68,11 @@ gstBufferManager::~gstBufferManager()
 // Enqueue
 bool gstBufferManager::Enqueue( GstBuffer* gstBuffer, GstCaps* gstCaps )
 {
+	LogDebug(LOG_GSTREAMER "gstBufferManager::Enqueue()\n");
 	if( !gstBuffer || !gstCaps )
 		return false;
+
+	mWaitEvent.Reset();
 
 	uint64_t timestamp = apptime_nano();
 
@@ -404,6 +407,7 @@ int gstBufferManager::Dequeue( void** output, imageFormat format, uint64_t timeo
 
 	// handle the CPU path (non-NVMM)
 	if( !mNvmmUsed )
+		LogDebug(LOG_GSTREAMER "gstBufferManager::Dequeue() -- reading latest once\n");
 		latestYUV = mBufferYUV.Next(RingBuffer::ReadLatestOnce);
 
 	if( !latestYUV )
